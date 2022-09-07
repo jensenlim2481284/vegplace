@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
 use Carbon\Carbon;
 
 use App\Models\User;
@@ -19,7 +20,6 @@ class APIController extends Controller
     # Get Food data
     public function getFood(Request $request)
     {
-
         # Check company setting 
         $company = Company::where('uid', $request->companyID)->first();
         if(!$company) abort(404);
@@ -195,7 +195,7 @@ class APIController extends Controller
     # Process payment webhook
     public function webhook(Request $request)
     {
-        
+        Storage::put('test.txt', $request);
     }
 
 }
