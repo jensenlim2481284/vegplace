@@ -120,6 +120,10 @@ class APIController extends Controller
         # Get food 
         $food = FoodDB::where('id', $request->foodID)->first();
 
+        # Validate balance
+        if($company->credit - $food->price < 0)
+            return response()->json(['message' => 'Insufficient balance. Please contact the admin to top up credit.'], 400); 
+
         # Validate data 
         if(!$food || !$user) abort(404);
 
