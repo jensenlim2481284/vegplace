@@ -14,6 +14,7 @@ Route::group(['middleware' => 'api.authentication'], function () {
     Route::post('/update/user', ['uses' => 'APIController@updateUser']);
     Route::post('/create/order', ['uses' => 'APIController@createOrder']);
     Route::post('/retrieve/statistic', ['uses' => 'APIController@retrieveStatistic']);
-    Route::post('/webhook', ['uses' => 'APIController@webhook']);
     
 });
+
+Route::post('/webhook', ['uses' => 'APIController@webhook']);
