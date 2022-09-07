@@ -53,7 +53,7 @@ class APIController extends Controller
     # Get Company data
     public function getCompany(Request $request)
     {
-        $company = Company::where('uid', $request->companyID)->with('order')->first();
+        $company = Company::where('uid', $request->companyID)->first();
         if(!$company) abort(404);
         return $company;
     }
@@ -150,48 +150,31 @@ class APIController extends Controller
     {
 
 
-        # If retrieve statistic data for overall 
-        if($request->companyID){
-    
-            # Calculate how much CO2 saved in total 
-            $company = Company::where('uid', $request->companyID)->first();
-            if(!$company) abort(404);
-            $totalOrder = Order::where('company_id', $request->companyID)->count();
-            $totalCO2Saved = $totalOrder * 2.75;
-    
-            # Calculate how much CO2 saved by every user 
-            $userOrder = User::where('company_id', $request->companyID)->with('order')->get();
-            foreach($userOrder as $user){
-                $user->CO2saved = count($user->order) * 2.75;
-    
-                # Calculate total vegan intake for each user 
-                $user->totalVegIntake = count($user->order);
-            }
-    
-            # Calculate overall health score percentage ( user vs vegan intake )
-            $days = Carbon::parse($company->created_at)->diffInDays(Carbon::now());
-            $overallScore = $days * count($company->user) / $totalOrder * 100 ;
-        }
 
-        # If retrieve self statistic data 
-        else {
+        # Calculate how much CO2 saved in total 
+        $company = Company::where('uid', $request->companyID)->first();
+        if(!$company) abort(404);
+        $totalOrder = Order::where('company_id', $request->companyID)->count();
+        $totalCO2Saved = $totalOrder * 1.98;
 
-            # Calculate how much CO2 saved in total 
-            $user = User::where('uid', $request->userID)->first();
-            if(!$user) abort(404);
-            $totalOrder = Order::where('user_id', $request->userID)->count();
-            $totalCO2Saved = $totalOrder * 2.75;
-            $company = $user->company;
+        // # Calculate how much CO2 saved by every user 
+        // $userOrder = User::where('company_id', $request->companyID)->with('order')->get();
+        // foreach($userOrder as $user){
+        //     $user->CO2saved = count($user->order) * 2.75;
+
+        //     # Calculate total vegan intake for each user 
+        //     $user->totalVegIntake = count($user->order);
+        // }
+
+        // # Calculate overall health score percentage ( user vs vegan intake )
+        // $days = Carbon::parse($company->created_at)->diffInDays(Carbon::now());
+        // $overallScore = $days * count($company->user) / $totalOrder * 100 ;
     
-            # Calculate overall health score percentage ( user vs vegan intake )
-            $days = Carbon::parse($company->created_at)->diffInDays(Carbon::now());
-            $overallScore = $days / $totalOrder * 100 ;
+        $statistic = [
+            'totalCO2Saved' => $totalCO2Saved,
+        ];
 
-
-        }
-        
-
-        return 1;
+        return $statistic;
     }
     
 

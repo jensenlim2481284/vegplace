@@ -13,7 +13,7 @@ Route::group(['middleware' => 'api.authentication'], function () {
     Route::post('/update/setting', ['uses' => 'APIController@updateSetting']);
     Route::post('/update/user', ['uses' => 'APIController@updateUser']);
     Route::post('/create/order', ['uses' => 'APIController@createOrder']);
-    Route::post('/retrieve/statistic', ['uses' => 'APIController@retrieveStatistic']);
+    Route::post('/get/statistic', ['uses' => 'APIController@retrieveStatistic']);
     
 });
 
