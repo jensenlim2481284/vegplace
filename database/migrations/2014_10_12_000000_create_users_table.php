@@ -15,16 +15,9 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('company_id'); 
             $table->string('uid')->unique(); 
             $table->string('name')->nullable();                               
-            $table->string('password')->nullable();                   
-            $table->string('email')->nullable(); 
-            $table->string('remark')->nullable(); 
-            $table->string('country')->nullable();                   
-            $table->string('language')->nullable();                   
-            $table->unsignedInteger('role_id');              
-            $table->unsignedInteger('company_id')->nullable();              
-            $table->unsignedInteger('status')->default(getConfig('user.status.active'));
             $table->timestamps();            
         });
     }

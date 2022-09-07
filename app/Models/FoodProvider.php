@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model 
+class FoodProvider extends Model 
 {
 
-    protected $table = 'company';
+    protected $table = 'food_provider_database';
     protected $guarded = ['id'];
     protected $hidden = ['id'];
 
@@ -19,10 +19,10 @@ class Company extends Model
     **************************************************/
          
     
-    # Relation to access company users
-    public function user()
+    # Relation to access food
+    public function food()
     {
-        return $this->hasMany('App\Models\User','company_id','id');
+        return $this->hasMany('App\Models\FoodDB','food_provider_id','id');
     }
 
 

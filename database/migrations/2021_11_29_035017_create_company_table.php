@@ -17,8 +17,8 @@ class CreateCompanyTable extends Migration
             $table->id();
             $table->string('name');     
             $table->string('uid')->unique();                                    
-            $table->string('domain')->nullable();                                    
-            $table->smallInteger('status')->default(getConfig('company.status.active'));          # Default status is active = 1 
+            $table->decimal('credit')->default(0);                                    
+            $table->text('setting')->nullable();                                    
             $table->timestamps();
         });
     }

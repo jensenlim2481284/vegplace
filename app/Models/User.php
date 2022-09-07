@@ -7,20 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable 
 {
 
-    # Model Setting 
-    use ModelHelper;
     protected $guarded = ['id'];
     protected $hidden = ['password', 'id'];
     
 
-    # Model Boot
-    public static function boot()
-    {
-        parent::boot();
-        self::creating(function ($user) {
-            $user->uid = generateReferenceKey('user_');
-        });
-    }
 
 
 
@@ -38,10 +28,10 @@ class User extends Authenticatable
     }
 
      
-    # Function to access call audio
-    public function call()
+    # Function to access order
+    public function order()
     {
-        return $this->hasMany('App\Models\Ticket','customer_id','id');
+        return $this->hasMany('App\Models\Order','order_id','id');
     }
 
 
