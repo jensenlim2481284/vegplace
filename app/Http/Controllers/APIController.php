@@ -195,7 +195,11 @@ class APIController extends Controller
     # Process payment webhook
     public function webhook(Request $request)
     {
-        Storage::put('test.txt', $request);
+
+        $company = Company::where('uid', $request->custom)->first();
+        $company->increment($request->mc_gross);
+        return response()->json('VERIFIED', 200); 
+
     }
 
 }
