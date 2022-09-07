@@ -53,7 +53,7 @@ class APIController extends Controller
     # Get Company data
     public function getCompany(Request $request)
     {
-        $company = Company::where('uid', $request->companyID)->first();
+        $company = Company::where('uid', $request->companyID)->with('order')->first();
         if(!$company) abort(404);
         return $company;
     }

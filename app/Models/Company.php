@@ -25,6 +25,13 @@ class Company extends Model
         return $this->hasMany('App\Models\User','company_id','id');
     }
 
+    
+    # Relation to access order
+    public function order()
+    {
+        return $this->hasMany('App\Models\Order','company_id','id');
+    }
+
 
 
    
