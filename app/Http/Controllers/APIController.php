@@ -154,7 +154,7 @@ class APIController extends Controller
         # Calculate how much CO2 saved in total 
         $company = Company::where('uid', $request->companyID)->first();
         if(!$company) abort(404);
-        $totalOrder = Order::where('company_id', $request->companyID)->count();
+        $totalOrder = Order::where('company_id', $company->id)->count();
         $totalCO2Saved = $totalOrder * 1.98;
 
         // # Calculate how much CO2 saved by every user 
